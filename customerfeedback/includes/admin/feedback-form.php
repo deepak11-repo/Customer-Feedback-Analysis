@@ -74,5 +74,3 @@ function render_feedback_form() {
     <?php
 
 }
-
-

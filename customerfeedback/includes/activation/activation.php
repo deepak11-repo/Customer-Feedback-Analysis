@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Checks if WooCommerce is activated and if not, deactivates this plugin,
+ * and adds an admin notice about the missing dependency.
+ */
 function my_custom_plugin_activation_check() {
     if (!class_exists('WooCommerce')) {
         deactivate_plugins('customerfeedback/customerfeedback.php');
@@ -10,10 +14,17 @@ function my_custom_plugin_activation_check() {
     } 
 }
 
+/**
+ * Activates the custom plugin by creating its database table.
+ */
 function activate_custom_plugin() {   
     customer_feedback_plugin_create_table(); 
 }
 
+/**
+ * Displays an admin notice if WooCommerce is not active. 
+ * The notice informs the user that WooCommerce is required for the plugin to work.
+*/
 function my_custom_plugin_activation_error_notice() {
     ?>
     <div class="notice notice-error is-dismissible">
@@ -22,6 +33,20 @@ function my_custom_plugin_activation_error_notice() {
     <?php
 }
 
+/**
+ * Creates the database table to store customer feedback data 
+ * if it does not already exist.
+ *
+ * Gets the table name with the WordPress table prefix, 
+ * checks if the table exists, and if not, creates it using dbDelta().
+ *
+ * The table has columns for:
+ * - category
+ * - type  
+ * - label
+ * - ratings
+ * - reviews
+*/
 function customer_feedback_plugin_create_table() {
     global $wpdb;    
     $table_name = $wpdb->prefix . 'customer_feedback';
@@ -40,5 +65,9 @@ function customer_feedback_plugin_create_table() {
     dbDelta($sql);
 }
 
+/**
+ * Includes the admin functions and public functions files.
+ * This allows the code in those files to be used after the plugin is activated.
+ */
 require_once plugin_dir_path( __FILE__ ) . '../admin/admin-functions.php';
 require_once plugin_dir_path( __FILE__ ) . '../public/public-functions.php';

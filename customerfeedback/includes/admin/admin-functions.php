@@ -71,11 +71,23 @@ class My_Admin_Functions {
         );
     }    
 
+    /**
+     * Renders the feedback form page.
+     *
+     * Includes the feedback form template and calls the render_feedback_form() function
+     * to output the form HTML.
+     */
     public function render_feedback_form() {
         include_once 'feedback-form.php';
         render_feedback_form();
     }
 
+    /**
+     * Renders the feedback analysis page.
+     * 
+     * Includes the feedback analysis template and calls the render_feedback_analysis() 
+     * function to output the analysis HTML.
+     */
     public function render_feedback_analysis() {
         include_once 'feedback-analysis.php';
         render_feedback_analysis();
