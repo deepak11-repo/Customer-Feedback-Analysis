@@ -9,6 +9,16 @@ class Public_Functions {
         add_action('wp_ajax_nopriv_submit_feedback', array($this, 'submit_feedback_callback'));
     }
 
+    /**
+     * Enqueues scripts and styles for the public side of the site.
+     * 
+     * Enqueues Bootstrap CSS and JS, the custom JS script, Toastify CSS and JS, 
+     * and the custom CSS stylesheet. 
+     * 
+     * The custom JS script is dependent on jQuery and passes an object with the AJAX url.
+     * Toastify JS depends on its own CSS.
+     * The custom CSS depends on nothing.
+     */
     public function enqueue_public_scripts_and_styles() {
         
         wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css', array(), '5.3.3');
@@ -23,6 +33,13 @@ class Public_Functions {
         wp_enqueue_style('my-style', plugin_dir_url(__FILE__) . '../../assets/css/public-styles.css');
     }
 
+    /**
+     * Outputs HTML for a custom popup displayed after checkout.
+     * 
+     * The popup contains a title, area to display dynamic content,
+     * a submit button, and a close button. The content is rendered
+     * client-side via JS by retrieving data from an AJAX request.
+     */
     public function custom_checkout_popup() {
         ?>        
         <div id="custom-popup" class="custom-popup">
@@ -36,6 +53,13 @@ class Public_Functions {
         <?php   
     }
 
+    /**
+     * Retrieves selected data via AJAX and returns JSON encoded response.
+     * 
+     * Gets selected data from 'selected_data' option, decodes JSON string, 
+     * and returns object containing category and options.
+     * Handles errors decoding JSON or if no data found.
+     */
     public function get_selected_data_callback() {        
         $selectedData = get_option('selected_data');
         if ($selectedData) {
@@ -57,6 +81,13 @@ class Public_Functions {
         wp_die();
     }
 
+    /**
+     * Submits feedback data received from the frontend form. 
+     *
+     * Inserts the feedback data into the wp_customer_feedback table.
+     * 
+     * @since 1.0.0
+    */
     public function submit_feedback_callback() {
         $form_data = isset($_POST['formData']) ? $_POST['formData'] : array();
         global $wpdb;

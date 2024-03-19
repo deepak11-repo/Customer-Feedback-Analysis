@@ -1,4 +1,12 @@
 <?php
+/**
+ * Renders the feedback form HTML.
+ *
+ * The form contains a general settings section to select the input type.
+ * It also contains a table of feedback questions to select which ones to include.
+ * 
+ * The selected questions will be rendered later when the form is submitted.
+ */
 function render_feedback_form() {   
     ?>
 
