@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.custom-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  max-width: 800px;
+  max-height: 80%; 
+  overflow-y: auto;
+  z-index: 9999;  
+}
+
+/* Hide scrollbar for WebKit browsers */
+.custom-popup::-webkit-scrollbar {
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  max-width: 400px;
+}
+
+.popup-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 3px;
+}
+
+
+
+
+/* Emoji rating styling START */
+.emoji-result-text {
+  font-size: 20px;
+  margin-top: 25px;
+  text-align: center;
+  background: #f4d348;
+  padding: 20px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+.emoji-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+}
+.emoji-radio {
+  display: none; 
+}
+.emoji-label {
+  display: inline-block;
+  font-size: 24px; 
+  margin: 5px;
+  cursor: pointer;
+}
+.emoji-label:hover {
+  transform: translateY(-5px);
+}
+.emoji-radio:checked + .emoji-label {
+  transform: scale(1.2); 
+}
+/* Emoji rating styling END */
+
+
+/* Star rating styling start */
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+.rate:not(:checked) > label:before {
+  content: "★ ";
+}
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+/* Star rating styling END */
+
+
+/* Number rating styling start */
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+}
+.rating input {
+  display: none;
+}
+.rating label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  cursor: pointer;
+}
+.rating label:hover,
+.rating input:checked + label {
+  background-color: #ffcc00;
+}
+/* Number rating styling END */

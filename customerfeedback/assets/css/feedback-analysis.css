@@ -1,0 +1,55 @@
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.dataTable thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+
+.dataTable tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+.dataTables_filter {
+  margin-bottom: 20px;
+}
+
+.dataTables_paginate,
+.dataTables_info {
+  margin-top: 20px;
+}
+
+.dataTables_wrapper .dt-buttons .buttons-excel {
+  background-color: black;
+  color: white;
+  border-color: black;
+  border-radius: 25px;
+}
+.dataTables_wrapper .dt-buttons .buttons-excel:hover {
+  background-color: #333;
+}
+
+.type-link {
+  text-decoration: none;
+}
+
+
+#back-btn {
+  background-color: black;
+  color: #fff;
+  padding: 6px 10px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+#back-btn:hover{
+  background-color: #414141;
+}
