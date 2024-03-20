@@ -189,8 +189,39 @@ function display_metric_feedback($type) {
             foreach ($rating_counts as $rating => $count) {
                 $percentage_counts[$rating] = ($count / $total_count) * 100;
             }
-        ?>
+            
+            $overall_score = '';
 
+            // Calculate overall score for NPS or CSAT or CES
+            if ($type === "NPS") {
+                // Calculate NPS score
+                $NPSScore = (($rating_counts['Extremely Dissatisfied'] + $rating_counts['Dissatisfied']) - ($rating_counts['Satisfied'] + $rating_counts['Extremely Satisfied'])) / $total_count * 100;
+                $NPSScore = abs(round($NPSScore, 2)) . '%';
+                $overall_score = $NPSScore;
+            } elseif ($type === "CSAT" || $type === "CES") {
+                // Calculate Total Points for CSAT or CES
+                $Total_Points = (1 * ($rating_counts['Extremely Dissatisfied']) + 
+                                 2 * ($rating_counts['Dissatisfied']) + 
+                                 3 * ($rating_counts['Neutral']) + 
+                                 4 * ($rating_counts['Satisfied']) + 
+                                 5 * ($rating_counts['Extremely Satisfied']));
+
+                $TOTAL_Score = $rating_counts['Extremely Dissatisfied'] + 
+                               $rating_counts['Dissatisfied'] + 
+                               $rating_counts['Neutral'] + 
+                               $rating_counts['Satisfied'] + 
+                               $rating_counts['Extremely Satisfied'];           
+                
+                $score = round($Total_Points / $TOTAL_Score, 1);
+                $score = $score . "/5";
+            
+                // Store the score in the overall variable
+                $overall_score = $score;
+            }
+
+            // Display the overall score
+            echo "<script>console.log('Overall Score for $type:', '$overall_score');</script>";
+        ?>
         <table id="metric-table">
             <thead>
                 <tr>
@@ -222,12 +253,13 @@ function display_metric_feedback($type) {
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script>
             var ratingPercentages = <?php echo json_encode($percentage_counts); ?>;
+            var overallScore = <?php echo json_encode($overall_score); ?>;
             Highcharts.chart('container', {
                 chart: {
                     type: 'pie'
                 },
                 title: {
-                    text: 'Distribution of Ratings'
+                    text: 'Overall Score: ' + overallScore 
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' 
