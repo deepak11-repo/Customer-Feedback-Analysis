@@ -191,34 +191,44 @@ function display_metric_feedback($type) {
             }
             
             $overall_score = '';
-
-            // Calculate overall score for NPS or CSAT or CES
+            // Calculate overall score for NPS, CSAT, or CES
             if ($type === "NPS") {
                 // Calculate NPS score
                 $NPSScore = (($rating_counts['Extremely Dissatisfied'] + $rating_counts['Dissatisfied']) - ($rating_counts['Satisfied'] + $rating_counts['Extremely Satisfied'])) / $total_count * 100;
                 $NPSScore = abs(round($NPSScore, 2)) . '%';
                 $overall_score = $NPSScore;
-            } elseif ($type === "CSAT" || $type === "CES") {
-                // Calculate Total Points for CSAT or CES
+            } elseif ($type === "CSAT") {
+                $Total_Points = (1 * ($rating_counts['Extremely Dissatisfied']) + 
+                2 * ($rating_counts['Dissatisfied']) + 
+                3 * ($rating_counts['Neutral']) + 
+                4 * ($rating_counts['Satisfied']) + 
+                5 * ($rating_counts['Extremely Satisfied']));
+
+                $TOTAL_Score = ($rating_counts['Extremely Dissatisfied'] + 
+                  $rating_counts['Dissatisfied'] + 
+                  $rating_counts['Neutral'] + 
+                  $rating_counts['Satisfied'] + 
+                  $rating_counts['Extremely Satisfied']);
+                $score = round(($Total_Points / ($TOTAL_Score * 5)) * 100, 2);
+                $score = $score . "%";
+                $overall_score = $score;
+            } elseif ($type === "CES") {
+                // Calculate Total Points for CES
                 $Total_Points = (1 * ($rating_counts['Extremely Dissatisfied']) + 
                                  2 * ($rating_counts['Dissatisfied']) + 
                                  3 * ($rating_counts['Neutral']) + 
                                  4 * ($rating_counts['Satisfied']) + 
                                  5 * ($rating_counts['Extremely Satisfied']));
-
-                $TOTAL_Score = $rating_counts['Extremely Dissatisfied'] + 
+            
+                $TOTAL_Score = ($rating_counts['Extremely Dissatisfied'] + 
                                $rating_counts['Dissatisfied'] + 
                                $rating_counts['Neutral'] + 
                                $rating_counts['Satisfied'] + 
-                               $rating_counts['Extremely Satisfied'];           
-                
-                $score = round($Total_Points / $TOTAL_Score, 1);
-                $score = $score . "/5";
-            
-                // Store the score in the overall variable
-                $overall_score = $score;
-            }
+                               $rating_counts['Extremely Satisfied']);           
 
+                $score = round($Total_Points / $TOTAL_Score, 1);
+                $overall_score = $score . " / 5"; 
+            }
             // Display the overall score
             echo "<script>console.log('Overall Score for $type:', '$overall_score');</script>";
         ?>
